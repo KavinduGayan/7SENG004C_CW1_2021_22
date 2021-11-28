@@ -17,11 +17,11 @@ public class Main {
         //create attraction list
         List<Attraction> attractionList = new ArrayList<>();
         List<Attraction> openAttractionList = new ArrayList<>();
-        boolean loopFlage = true;
+        boolean loopFlag = true;
 
         Scanner scanner = new Scanner(System.in);
 
-        while (loopFlage) {
+        while (loopFlag) {
             out.println("Enter attraction type:");
             out.println("(Park - 1, Museum - 2, Theater - 3)");
             int attractionType = Integer.parseInt(scanner.nextLine());
@@ -40,7 +40,7 @@ public class Main {
             out.println("Yes/No - y/n:");
             String continuingFlag = scanner.nextLine();
             if ("n".equalsIgnoreCase(continuingFlag)) {
-                loopFlage = false;
+                loopFlag = false;
             }
             out.println("=====================================");
         }
@@ -49,7 +49,7 @@ public class Main {
         out.println("=====================================");
         out.println("List of attractions, which are open after 1900 and which cost less than £5");
         for (Attraction openAttraction : openAttractionList) {
-            out.println(openAttraction.getAttractionName());
+            out.println("attraction id -> "+openAttraction.getAttractionId() + ", attraction name -> "+openAttraction.getAttractionName());
         }
         out.println("=====================================");
     }
@@ -83,12 +83,14 @@ public class Main {
             park.setOpenTIme(openHour);
             park.setCloseTime(closeHour);
             park.setAttractionName(attractionName);
+            park.setAttractionId();
             attractionList.add(park);
         } else if (attractionType == 2) {
             museum = new Museum();
             museum.setOpenTIme(openHour);
             museum.setCloseTime(closeHour);
             museum.setAttractionName(attractionName);
+            museum.setAttractionId();
             out.println("Do you want add charging:");
             out.println("Yes/No - y/n:");
             String chargingFlag = scanner.nextLine();
@@ -106,6 +108,7 @@ public class Main {
             theater.setOpenTIme(openHour);
             theater.setCloseTime(closeHour);
             theater.setAttractionName(attractionName);
+            theater.setAttractionId();
             out.println("Enter the charging amount(£):");
             float chargeAmount = Float.parseFloat(scanner.nextLine());
             theater.setChargeAmount(chargeAmount);

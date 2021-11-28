@@ -1,9 +1,20 @@
 package lk.iit.ase.model;
 
+import java.util.UUID;
+
 public class Attraction {
+    private UUID attractionId;
     private String attractionName;
     private int openTIme;
     private int closeTime;
+
+    public UUID getAttractionId() {
+        return attractionId;
+    }
+
+    public void setAttractionId() {
+        this.attractionId = UUID.randomUUID();
+    }
 
     public String getAttractionName() {
         return attractionName;
