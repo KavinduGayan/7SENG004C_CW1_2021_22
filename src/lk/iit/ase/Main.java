@@ -14,27 +14,6 @@ import static java.lang.System.out;
 public class Main {
 
     public static void main(String[] args) {
-        /*//create museum
-        Museum museum = new Museum();
-        museum.setOpenTIme(700);
-        museum.setCloseTime(2000);
-        museum.setCharged(true);
-        museum.setChargeAmount(2.0f);
-
-        //create park
-        Park park = new Park();
-        park.setOpenTIme(700);
-        park.setCloseTime(2000);
-
-        //create theater
-        Theater theater = new Theater();
-        theater.setOpenTIme(700);
-        theater.setCloseTime(2000);
-        theater.setChargeAmount(3.0f);*/
-
-        Museum museum;
-        Park park;
-        Theater theater;
         //create attraction list
         List<Attraction> attractionList = new ArrayList<>();
         List<Attraction> openAttractionList = new ArrayList<>();
@@ -54,39 +33,7 @@ public class Main {
             out.println("Enter the close hour(HHMM):");
             int closeHour = Integer.parseInt(scanner.nextLine());
 
-            if (attractionType == 1) {
-                park = new Park();
-                park.setOpenTIme(openHour);
-                park.setCloseTime(closeHour);
-                park.setAttractionName(attractionName);
-                attractionList.add(park);
-            } else if (attractionType == 2) {
-                museum = new Museum();
-                museum.setOpenTIme(openHour);
-                museum.setCloseTime(closeHour);
-                museum.setAttractionName(attractionName);
-                out.println("Do you want add charging:");
-                out.println("Yes/No - y/n:");
-                String chargingFlag = scanner.nextLine();
-                if ("y".equalsIgnoreCase(chargingFlag)) {
-                    museum.setCharged(true);
-                    out.println("Enter the charging amount(£):");
-                    float chargeAmount = Float.parseFloat(scanner.nextLine());
-                    museum.setChargeAmount(chargeAmount);
-                } else {
-                    museum.setCharged(false);
-                }
-                attractionList.add(museum);
-            } else {
-                theater = new Theater();
-                theater.setOpenTIme(openHour);
-                theater.setCloseTime(closeHour);
-                theater.setAttractionName(attractionName);
-                out.println("Enter the charging amount(£):");
-                float chargeAmount = Float.parseFloat(scanner.nextLine());
-                theater.setChargeAmount(chargeAmount);
-                attractionList.add(theater);
-            }
+            setAttractionList(attractionList, scanner, attractionType, attractionName, openHour, closeHour);
             out.println("Attraction successfully added !!!");
             out.println("=====================================");
             out.println("Do you want to add new Attraction");
@@ -98,6 +45,16 @@ public class Main {
             out.println("=====================================");
         }
 
+        setOpenAttractionList(attractionList, openAttractionList);
+        out.println("=====================================");
+        out.println("List of attractions, which are open after 1900 and which cost less than £5");
+        for (Attraction openAttraction : openAttractionList) {
+            out.println(openAttraction.getAttractionName());
+        }
+        out.println("=====================================");
+    }
+
+    private static void setOpenAttractionList(List<Attraction> attractionList, List<Attraction> openAttractionList) {
         for (Attraction attraction : attractionList) {
             if (attraction.getCloseTime() > 1900) {
                 if (attraction instanceof Museum) {
@@ -115,11 +72,44 @@ public class Main {
                 }
             }
         }
-        out.println("=====================================");
-        out.println("List of attractions, which are open after 1900 and which cost less than £5");
-        for (Attraction openAttraction : openAttractionList) {
-            out.println(openAttraction.toString());
+    }
+
+    private static void setAttractionList(List<Attraction> attractionList, Scanner scanner, int attractionType, String attractionName, int openHour, int closeHour) {
+        Museum museum;
+        Park park;
+        Theater theater;
+        if (attractionType == 1) {
+            park = new Park();
+            park.setOpenTIme(openHour);
+            park.setCloseTime(closeHour);
+            park.setAttractionName(attractionName);
+            attractionList.add(park);
+        } else if (attractionType == 2) {
+            museum = new Museum();
+            museum.setOpenTIme(openHour);
+            museum.setCloseTime(closeHour);
+            museum.setAttractionName(attractionName);
+            out.println("Do you want add charging:");
+            out.println("Yes/No - y/n:");
+            String chargingFlag = scanner.nextLine();
+            if ("y".equalsIgnoreCase(chargingFlag)) {
+                museum.setCharged(true);
+                out.println("Enter the charging amount(£):");
+                float chargeAmount = Float.parseFloat(scanner.nextLine());
+                museum.setChargeAmount(chargeAmount);
+            } else {
+                museum.setCharged(false);
+            }
+            attractionList.add(museum);
+        } else {
+            theater = new Theater();
+            theater.setOpenTIme(openHour);
+            theater.setCloseTime(closeHour);
+            theater.setAttractionName(attractionName);
+            out.println("Enter the charging amount(£):");
+            float chargeAmount = Float.parseFloat(scanner.nextLine());
+            theater.setChargeAmount(chargeAmount);
+            attractionList.add(theater);
         }
-        out.println("=====================================");
     }
 }
